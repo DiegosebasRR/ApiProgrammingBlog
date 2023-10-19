@@ -14,6 +14,10 @@ const CategorySchema = new Schema<Category>({
   updatedAt: { type: Date },
 });
 
+CategorySchema.pre("save", function (next) {
+  this.updatedAt = new Date();
+  next();
+});
 const CategoryModel = model("category", CategorySchema);
 
 export default CategoryModel;

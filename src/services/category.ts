@@ -12,7 +12,14 @@ const getCategories = async (): Promise<Category[]> => {
 };
 
 const getCategory = async (id: string): Promise<Category | null> => {
-  const response = await CategoryModel.findOne({ _id: id });
+  const response = await CategoryModel.findOne({ _id: id }).populate("article");
+  return response;
+};
+
+const getCategoryByTitle = async (title: string): Promise<Category | null> => {
+  const response = await CategoryModel.findOne({ title: title }).populate(
+    "article"
+  );
   return response;
 };
 
@@ -37,4 +44,5 @@ export {
   deleteCategory,
   getCategories,
   getCategory,
+  getCategoryByTitle,
 };
